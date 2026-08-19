@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tonprenom.com/sitemap-index.xml
+Sitemap: https://ishernan.github.io/site-recherche/sitemap-index.xml

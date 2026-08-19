@@ -5,8 +5,9 @@ import rehypeKatex from 'rehype-katex';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: remplacer par ton domaine une fois acheté
-  site: 'https://tonprenom.com',
+  // TODO: remplacer par ton domaine une fois acheté (et retirer `base` le cas échéant)
+  site: 'https://ishernan.github.io',
+  base: '/site-recherche',
   integrations: [mdx()],
   // Note: pour ajouter un sitemap, installer @astrojs/sitemap et l'ajouter aux
   // integrations une fois le domaine défini.
