@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/ui';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="Bio" lang={lang}>
+  <div class="container">
+    <header class="article-header">
+      <span class="label">{t('nav.bio')}</span>
+      <h1>Biographie</h1>
+    </header>
+
+    <div class="article-body">
+      <p>
+        [Prénom Nom] est chercheur en philosophie des sciences, actuellement rattaché à
+        [institution]. Ses travaux portent sur les intersections entre philosophie de la
+        biologie, philosophie de la technique et anthropologie du vivant.
+      </p>
+
+      <h2>Parcours</h2>
+      <p>
+        Après une formation en [discipline] à [université], il a soutenu une thèse en [année]
+        sur [sujet], sous la direction de [directeur/directrice]. Il a ensuite occupé des
+        fonctions de [postdoc / chercheur associé / etc.] à [institution].
+      </p>
+
+      <h2>Recherche actuelle</h2>
+      <p>
+        Ses recherches présentes s'articulent autour de trois questions : [question 1],
+        [question 2], et [question 3]. Il travaille notamment sur [projet en cours].
+      </p>
+
+      <h2>Enseignement</h2>
+      <p>
+        Il enseigne [matières] à [établissement], au niveau [licence / master / doctorat].
+        Ses séminaires portent sur [thèmes].
+      </p>
+
+      <h2>Distinctions et responsabilités</h2>
+      <ul>
+        <li>Membre de [société savante]</li>
+        <li>Comité éditorial de [revue]</li>
+        <li>Prix / bourse [nom, année]</li>
+      </ul>
+
+      <hr />
+
+      <p class="text-muted">
+        <a href="/cv.pdf">Télécharger le CV complet (PDF)</a>
+      </p>
+    </div>
+  </div>
+</BaseLayout>

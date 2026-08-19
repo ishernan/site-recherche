@@ -1,0 +1,61 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description?: string;
+    date: Date | string;
+    lang?: Lang;
+    tags?: string[];
+    journal?: string;
+    doi?: string;
+    pdf?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const lang = frontmatter.lang || 'fr';
+
+// Formatage de la date selon la langue
+const dateLocale = lang === 'fr' ? 'fr-FR' : lang === 'es' ? 'es-ES' : 'en-US';
+const date = typeof frontmatter.date === 'string' ? new Date(frontmatter.date) : frontmatter.date;
+const dateFormatted = date.toLocaleDateString(dateLocale, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description} lang={lang}>
+  <article class="container">
+    <header class="article-header">
+      <div class="meta">
+        <time datetime={date.toISOString()}>{dateFormatted}</time>
+        {frontmatter.journal && <span> · {frontmatter.journal}</span>}
+      </div>
+      <h1>{frontmatter.title}</h1>
+      {frontmatter.description && <p class="description">{frontmatter.description}</p>}
+    </header>
+
+    <div class="article-body">
+      <slot />
+    </div>
+
+    {(frontmatter.doi || frontmatter.pdf) && (
+      <footer class="mt-4">
+        <hr />
+        <p class="meta text-muted">
+          {frontmatter.doi && (
+            <>
+              DOI : <a href={`https://doi.org/${frontmatter.doi}`}>{frontmatter.doi}</a>
+              {frontmatter.pdf && ' · '}
+            </>
+          )}
+          {frontmatter.pdf && <a href={frontmatter.pdf}>Télécharger le PDF</a>}
+        </p>
+      </footer>
+    )}
+  </article>
+</BaseLayout>

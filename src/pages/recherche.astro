@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/ui';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="Recherche" lang={lang}>
+  <div class="container">
+    <header class="article-header">
+      <span class="label">{t('nav.research')}</span>
+      <h1>Recherche</h1>
+      <p class="description">
+        Trois fils entrelacés : le vivant, la technique, et ce que les sciences font au monde.
+      </p>
+    </header>
+
+    <div class="article-body">
+      <p>
+        Mon travail s'inscrit dans une tradition qui refuse de séparer nettement la nature
+        et l'artifice. À la suite de Simondon, Canguilhem, Latour et Haraway, je m'intéresse
+        aux moments où ces catégories vacillent — dans les laboratoires, dans les
+        infrastructures, dans les gestes ordinaires du vivant.
+      </p>
+
+      <h2>Axes actuels</h2>
+
+      <h3>01 — Philosophie de la biologie</h3>
+      <p>
+        [Décris ici ta ligne d'enquête dans ce champ. Exemples de questions : qu'est-ce
+        qu'un organisme à l'âge de la biologie systémique ? Comment penser l'individuation
+        biologique après le paradigme du gène ?]
+      </p>
+
+      <h3>02 — Philosophie de la technique</h3>
+      <p>
+        [Ta contribution ici. Exemples : les infrastructures comme opérateurs
+        ontologiques ; la technicité au-delà de l'instrumentalité ; le mode d'existence
+        des objets techniques contemporains.]
+      </p>
+
+      <h3>03 — Anthropologie du vivant</h3>
+      <p>
+        [Ton angle. Par exemple : ethnographie des pratiques scientifiques,
+        anthropologie des relations interspécifiques, mondes plus qu'humains.]
+      </p>
+
+      <h3>04 — Sociologie des sciences</h3>
+      <p>
+        [Ton approche. Ex. : circulation des savoirs, controverses scientifiques,
+        épistémologies situées.]
+      </p>
+
+      <h2>Projets en cours</h2>
+      <p>
+        <strong>[Titre du projet 1]</strong> — [Description brève, cadre institutionnel,
+        collaborateurs, durée.]
+      </p>
+      <p>
+        <strong>[Titre du projet 2]</strong> — [Description.]
+      </p>
+    </div>
+  </div>
+</BaseLayout>

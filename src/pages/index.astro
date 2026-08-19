@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config';
+import { useTranslations } from '../i18n/ui';
+import { getCollection } from 'astro:content';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+
+// Récupère les 3 derniers articles publiés en français
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.lang === lang && !data.draft;
+});
+const recentArticles = allArticles
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout lang={lang}>
+  <div class="container">
+    <section class="hero">
+      <span class="label">{site.role[lang]}</span>
+      <h1>{site.tagline[lang]}</h1>
+      <p class="lede">{site.lede[lang]}</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-label">{t('home.notice')}</h2>
+      <p>{site.notice[lang]}</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-label">{t('home.themes')}</h2>
+      <div class="themes-grid">
+        {site.themes[lang].map((theme, i) => (
+          <div class="theme-item">
+            <span class="theme-num">{String(i + 1).padStart(2, '0')}</span>
+            <span>{theme}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {recentArticles.length > 0 && (
+      <section class="section">
+        <h2 class="section-label">{t('home.recent')}</h2>
+        <ul class="writings">
+          {recentArticles.map((article) => {
+            const date = article.data.date.toLocaleDateString('fr-FR', {
+              year: 'numeric',
+              month: 'short',
+            });
+            return (
+              <li>
+                <a href={`/ecrits/${article.id}`}>{article.data.title}</a>
+                <span class="writing-date">{date}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/ui';
+import { getCollection } from 'astro:content';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+
+const articles = (await getCollection('articles', ({ data }) => {
+  return data.lang === lang && !data.draft;
+})).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Écrits" lang={lang}>
+  <div class="container">
+    <header class="article-header">
+      <span class="label">{t('nav.writings')}</span>
+      <h1>Écrits</h1>
+      <p class="description">
+        Articles, chapitres, contributions et textes plus courts.
+      </p>
+    </header>
+
+    {articles.length === 0 ? (
+      <p class="text-muted">Aucun écrit pour le moment. Ajoute un fichier .md dans <code>src/content/articles/</code>.</p>
+    ) : (
+      <ul class="writings">
+        {articles.map((article) => {
+          const date = article.data.date.toLocaleDateString('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+          });
+          return (
+            <li>
+              <a href={`/ecrits/${article.id}`}>
+                {article.data.title}
+                {article.data.description && (
+                  <span class="text-muted"> — {article.data.description}</span>
+                )}
+              </a>
+              <span class="writing-date">{date}</span>
+            </li>
+          );
+        })}
+      </ul>
+    )}
+  </div>
+</BaseLayout>

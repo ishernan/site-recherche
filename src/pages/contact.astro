@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config';
+import { useTranslations } from '../i18n/ui';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="Contact" lang={lang}>
+  <div class="container">
+    <header class="article-header">
+      <span class="label">{t('nav.contact')}</span>
+      <h1>Contact</h1>
+      <p class="description">{t('contact.form_intro')}</p>
+    </header>
+
+    <div class="article-body">
+      <ul class="contact-links">
+        {site.contact.email && (
+          <li>
+            <span class="label-key">{t('contact.email')}</span>
+            <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+          </li>
+        )}
+        {site.contact.orcid && (
+          <li>
+            <span class="label-key">{t('contact.orcid')}</span>
+            <a href={`https://orcid.org/${site.contact.orcid}`}>{site.contact.orcid}</a>
+          </li>
+        )}
+        {site.contact.scholar && (
+          <li>
+            <span class="label-key">{t('contact.scholar')}</span>
+            <a href={site.contact.scholar}>Profil</a>
+          </li>
+        )}
+        {site.contact.academia && (
+          <li>
+            <span class="label-key">Academia.edu</span>
+            <a href={site.contact.academia}>Profil</a>
+          </li>
+        )}
+        {site.contact.mastodon && (
+          <li>
+            <span class="label-key">Mastodon</span>
+            <a href={`https://scholar.social/${site.contact.mastodon}`}>{site.contact.mastodon}</a>
+          </li>
+        )}
+        {site.contact.bluesky && (
+          <li>
+            <span class="label-key">Bluesky</span>
+            <a href={`https://bsky.app/profile/${site.contact.bluesky}`}>{site.contact.bluesky}</a>
+          </li>
+        )}
+      </ul>
+
+      <h2 class="mt-4">Formulaire</h2>
+      <p class="text-muted">
+        Le formulaire ci-dessous est prêt à être branché sur un service tiers gratuit.
+        Options recommandées : <a href="https://formspree.io">Formspree</a>,
+        <a href="https://www.web3forms.com">Web3Forms</a>, ou
+        <a href="https://formsubmit.co">FormSubmit</a>.
+        Remplace <code>action="..."</code> ci-dessous par ton endpoint.
+      </p>
+
+      <form class="contact-form" action="https://formsubmit.co/ton.email@example.com" method="POST">
+        <div>
+          <label for="name">{t('contact.name')}</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div>
+          <label for="email">{t('contact.email')}</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div>
+          <label for="subject">{t('contact.subject')}</label>
+          <input type="text" id="subject" name="subject" />
+        </div>
+        <div>
+          <label for="message">{t('contact.message')}</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+        <button type="submit">{t('contact.send')}</button>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
